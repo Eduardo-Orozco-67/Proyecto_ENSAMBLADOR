@@ -9,7 +9,7 @@ Proyecto Final de la asignatura TRADUCTORES DE BAJO NIVEL del 5to semestre de la
 - [@EmiliaZul](https://github.com/EmiliaZul)
 - [@SamuelSanchez17](https://github.com/SamuelSanchez17)
 - [@B1PO](https://github.com/B1PO)
-- [@B1PO](https://github.com/B1PO)
+- [@Enrique](https://github.com/PEVF)
 
 ## Instalacion
 
