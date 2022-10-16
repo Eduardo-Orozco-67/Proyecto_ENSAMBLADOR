@@ -1,7 +1,5 @@
 # Proyecto_ENSAMBLADOR
 
-# Punto de venta
-
 Proyecto Final de la asignatura TRADUCTORES DE BAJO NIVEL del 5to semestre de la Licenciatura en INGENIERIA EN DESARROLLO Y TECNOLOGIAS DE SOFTWARE  AGOSTO-DICIEMBRE 2022
 
 
