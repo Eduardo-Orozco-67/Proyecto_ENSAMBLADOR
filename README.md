@@ -23,7 +23,7 @@ descargar el archivo .zip del repositorio para tener acceso a los arcvhivos
 
 ![Logo](https://s3.amazonaws.com/s3.timetoast.com/public/uploads/photo/20021419/image/medium-506985c244189a3aa5e1320d82286ee1.png)
 
-![Logo](https://lh3.googleusercontent.com/-_bBDMOLl9T0/Vv47dRzHeII/AAAAAAAAX8g/zTdxtfCI9u4X-usQjMv8ScN3VJieX__ZACCo/s128-Ic42/emu8086.png)
+   ![Logo](https://lh3.googleusercontent.com/-_bBDMOLl9T0/Vv47dRzHeII/AAAAAAAAX8g/zTdxtfCI9u4X-usQjMv8ScN3VJieX__ZACCo/s128-Ic42/emu8086.png)
 
 ## License
 
