@@ -17,6 +17,8 @@ descargar el archivo .zip del repositorio para tener acceso a los arcvhivos
 
 ![App Screenshot](https://br.atsit.in/es/wp-content/uploads/2021/06/como-descargar-archivos-y-ver-codigo-desde-github-9.png)
 
+NOTA: el archivo .asm para ver el código es proyecto.asm
+
 ## LENGUAJES USADOS
 
 ![Logo](https://s3.amazonaws.com/s3.timetoast.com/public/uploads/photo/20021419/image/medium-506985c244189a3aa5e1320d82286ee1.png)
