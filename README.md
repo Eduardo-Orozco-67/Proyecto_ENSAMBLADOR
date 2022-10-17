@@ -25,6 +25,7 @@ NOTA: el archivo .asm para ver el código es proyecto.asm
 
 ## IDE USADO
 
+EMU 8086
 ![Logo](https://lh3.googleusercontent.com/-_bBDMOLl9T0/Vv47dRzHeII/AAAAAAAAX8g/zTdxtfCI9u4X-usQjMv8ScN3VJieX__ZACCo/s128-Ic42/emu8086.png)
 
 ## License
