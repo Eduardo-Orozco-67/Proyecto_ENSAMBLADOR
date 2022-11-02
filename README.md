@@ -8,7 +8,7 @@ Proyecto Final de la asignatura TRADUCTORES DE BAJO NIVEL del 5to semestre de la
 - JOSÉ EDUARDO OROZCO CÁRDENAS [@Eduardo-Orozco-67](https://github.com/Eduardo-Orozco-67)
 - EMILIA ZUÑIGA LOSADA [@EmiliaZul](https://github.com/EmiliaZul)
 - SAMUEL SÁNCHEZ GUZMÁN [@SamuelSanchez17](https://github.com/SamuelSanchez17)
-- PEDRO ORCTAVIO CULEBRO PRADO [@B1PO](https://github.com/B1PO)
+- PEDRO OCTAVIO CULEBRO PRADO [@B1PO](https://github.com/B1PO)
 - PAULINO ENRIQUE NORIEGA VELAZQUEZ [@Enrique](https://github.com/PEVF)
 
 ## Instalacion
