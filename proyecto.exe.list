@@ -1,0 +1,785 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+proyecto.exe -- emu8086 assembler version: 4.08  
+ 
+[ 16/10/2022  --  09:29:58 p. m. ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       include "menuprincipal.inc"
+[   2]        :                                       include "macros.inc"
+[   3]        :                                       include "presentacion.inc"
+[   4]        :                                       include "opcion2.inc"
+[   5]        :                                       include "opcion3.inc"
+[   6]        :                                       include "opcion4.inc"
+[   7]        :                                       
+[   8]        :                                       DATOS SEGMENT
+[   9]        :                                       ;MENU PRINCIPAL
+[  10]    0000: B0 20 20 B0 20 20 B0 20 42 49 45 4E   CADENA DB "°  °  ° BIENVENIDO °  °  ° $"
+                56 45 4E 49 44 4F 20 B0 20 20 B0 20 
+                20 B0 20 24                         
+[  11]    001C: 31 2E 2D 20 50 52 45 53 45 4E 54 41   CADENA1 DB "1.- PRESENTACION DEL EQUIPO$"
+                43 49 4F 4E 20 44 45 4C 20 45 51 55 
+                49 50 4F 24                         
+[  12]    0038: 32 2E 2D 20 43 4F 4D 50 41 52 41 43   CADENA2 DB "2.- COMPARACION DE DOS NUMEROS$"
+                49 4F 4E 20 44 45 20 44 4F 53 20 4E 
+                55 4D 45 52 4F 53 24                
+[  13]    0057: 33 2E 2D 20 4F 50 45 52 41 43 49 4F   CADENA3 DB "3.- OPERACIONES CON ARCHIVOS$"
+                4E 45 53 20 43 4F 4E 20 41 52 43 48 
+                49 56 4F 53 24                      
+[  14]    0074: 34 2E 2D 20 52 45 47 41 4C 4F 53 20   CADENA4 DB "4.- REGALOS NAVIDENOS$"
+                4E 41 56 49 44 45 4E 4F 53 24       
+[  15]    008A: 35 2E 2D 20 43 41 53 41 20 44 45 20   CADENA5 DB "5.- CASA DE ASTERISCOS$"
+                41 53 54 45 52 49 53 43 4F 53 24    
+[  16]    00A1: 36 2E 2D 20 53 41 4C 49 52 20 44 45   CADENA6 DB "6.- SALIR DEL PROGRAMA $"
+                4C 20 50 52 4F 47 52 41 4D 41 20 24 
+                                                    
+[  17]    00B9: 4F 50 43 49 4F 4E 3A 20 24            CADENA7 DB "OPCION: $"
+[  18]    00C2: 00                                    DIGITO DB ?
+[  19]    00C3: 43 4F 4E 54 49 4E 55 41 52 20 5B 45   CADENA8 DB "CONTINUAR [ENTER] $"
+                4E 54 45 52 5D 20 24                
+[  20]        :                                       
+[  21]        :                                       ;SUBMENU
+[  22]    00D6: 31 2E 2D 20 52 45 47 52 45 53 41 52   CADENASUB1 DB "1.- REGRESAR AL MENU PRINCIPAL$"
+                20 41 4C 20 4D 45 4E 55 20 50 52 49 
+                4E 43 49 50 41 4C 24                
+[  23]    00F5: 32 2E 2D 20 53 41 4C 49 52 24         CADENASUB2 DB "2.- SALIR$"
+[  24]        :                                       
+[  25]        :                                       ;OPCION 1
+[  26]    00FF: B0 20 20 B0 20 20 B0 20 50 52 45 53   CADENAOP1 DB "°  °  ° PRESENTACION DEL EQUIPO °  °  ° $"
+                45 4E 54 41 43 49 4F 4E 20 44 45 4C 
+                20 45 51 55 49 50 4F 20 B0 20 20 B0 
+                20 20 B0 20 24                      
+[  27]    0128: 55 4E 49 56 45 52 53 49 44 41 44 20   CADENA1OP1 DB "UNIVERSIDAD AUTONOMA DE CHIAPAS$"
+                41 55 54 4F 4E 4F 4D 41 20 44 45 20 
+                43 48 49 41 50 41 53 24             
+[  28]    0148: 46 41 43 55 4C 54 41 44 20 44 45 20   CADENA2OP1 DB "FACULTAD DE NEGOCIOS C-IV$"
+                4E 45 47 4F 43 49 4F 53 20 43 2D 49 
+                56 24                               
+[  29]    0162: 54 52 41 44 55 43 54 4F 52 45 53 20   CADENA3OP1 DB "TRADUCTORES DE BAJO NIVEL$"
+                44 45 20 42 41 4A 4F 20 4E 49 56 45 
+                4C 24                               
+[  30]    017C: 50 45 44 52 4F 20 4F 43 54 41 56 49   CADENA4OP1 DB "PEDRO OCTAVIO CULEBRO PRADO$"
+                4F 20 43 55 4C 45 42 52 4F 20 50 52 
+                41 44 4F 24                         
+[  31]    0198: 53 41 4D 55 45 4C 20 53 41 4E 43 48   CADENA5OP1 DB "SAMUEL SANCHEZ GUZMAN$"
+                45 5A 20 47 55 5A 4D 41 4E 24       
+[  32]    01AE: 50 41 55 4C 49 4E 4F 20 45 4E 52 49   CADENA6OP1 DB "PAULINO ENRIQUE NORIEGA VELAZQUEZ$"
+                51 55 45 20 4E 4F 52 49 45 47 41 20 
+                56 45 4C 41 5A 51 55 45 5A 24       
+[  33]    01D0: 4A 4F 53 45 20 45 44 55 41 52 44 4F   CADENA7OP1 DB "JOSE EDUARDO OROZCO CARDENAS$"
+                20 4F 52 4F 5A 43 4F 20 43 41 52 44 
+                45 4E 41 53 24                      
+[  34]    01ED: 45 4D 49 4C 49 41 20 5A 55 4E 49 47   CADENA8OP1 DB "EMILIA ZUNIGA LOSADA$"
+                41 20 4C 4F 53 41 44 41 24          
+[  35]        :                                       
+[  36]        :                                       ;OPCION 2
+[  37]    0202: B0 20 20 B0 20 20 B0 20 43 4F 4D 50   CADENAOP2 DB "°  °  ° COMPARACION DE DOS NUMEROS °  °  ° $"
+                41 52 41 43 49 4F 4E 20 44 45 20 44 
+                4F 53 20 4E 55 4D 45 52 4F 53 20 B0 
+                20 20 B0 20 20 B0 20 24             
+[  38]    022E: 49 4E 47 52 45 53 45 20 55 4E 20 56   CADENA1OP2 DB "INGRESE UN VALOR [0...9]: $"
+                41 4C 4F 52 20 5B 30 2E 2E 2E 39 5D 
+                3A 20 24                            
+[  39]    0249: 49 4E 47 52 45 53 45 20 55 4E 20 56   CADENA2OP2 DB "INGRESE UN VALOR [0...9]: $"
+                41 4C 4F 52 20 5B 30 2E 2E 2E 39 5D 
+                3A 20 24                            
+[  40]    0264: 45 4C 20 50 52 49 4D 45 52 20 56 41   CADENAMAYOR DB "EL PRIMER VALOR ES MAYOR$"
+                4C 4F 52 20 45 53 20 4D 41 59 4F 52 
+                24                                  
+[  41]    027D: 45 4C 20 50 52 49 4D 45 52 20 56 41   CADENAMENOR DB "EL PRIMER VALOR ES MENOR$"
+                4C 4F 52 20 45 53 20 4D 45 4E 4F 52 
+                24                                  
+[  42]    0296: 53 4F 4E 20 49 47 55 41 4C 45 53 24   CADENAIGUAL DB "SON IGUALES$"
+                                                    
+[  43]    02A2: 00                                    DIG1OP2 DB ?
+[  44]    02A3: 00                                    DIG2OP2 DB ?
+[  45]    02A4: 00                                    DIGISOP2 DB ?
+[  46]        :                                       
+[  47]        :                                       ;SUBMENU OPCION 2
+[  48]    02A5: 53 2E 2D 20 44 45 53 45 41 20 4F 54   CADENASMOP21 DB "S.- DESEA OTRA COMPARACION? (S)$"
+                52 41 20 43 4F 4D 50 41 52 41 43 49 
+                4F 4E 3F 20 28 53 29 24             
+[  49]    02C5: 31 2E 2D 20 52 45 47 52 45 53 41 52   CADENASMOP22 DB "1.- REGRESAR AL MENU PRINCIPAL$"
+                20 41 4C 20 4D 45 4E 55 20 50 52 49 
+                4E 43 49 50 41 4C 24                
+[  50]    02E4: 32 2E 2D 20 53 41 4C 49 52 24         CADENASMOP23 DB "2.- SALIR$"
+[  51]    02EE: 73                                    OPCIONSI DB 115 ;115"s$"
+[  52]    02EF: 00                                    CADENASMOP25 DB ?
+[  53]        :                                       
+[  54]        :                                       ;OPCION 3
+[  55]    02F0: 3C 3C 3C 3C 3C 20 53 55 42 4D 45 4E   letrero0 DB '<<<<< SUBMENU DE ARCHIVOS >>>>>$'
+                55 20 44 45 20 41 52 43 48 49 56 4F 
+                53 20 3E 3E 3E 3E 3E 24             
+[  56]    0310: 31 2E 20 43 52 45 41 52 20 41 52 43   letrero1 DB '1. CREAR ARCHIVO$'
+                48 49 56 4F 24                      
+[  57]    0321: 32 2E 20 41 42 52 49 52 20 41 52 43   letrero2 DB '2. ABRIR ARCHIVO$'
+                48 49 56 4F 24                      
+[  58]    0332: 33 2E 20 4D 4F 44 49 46 49 43 41 52   letrero3 DB '3. MODIFICAR ARCHIVO$'
+                20 41 52 43 48 49 56 4F 24          
+[  59]    0347: 34 2E 20 42 4F 52 52 41 52 20 41 52   letrero4 DB '4. BORRAR ARCHIVO$'
+                43 48 49 56 4F 24                   
+[  60]    0359: 35 2E 20 52 45 47 52 45 53 41 52 20   letrero5 DB '5. REGRESAR AL MENU PRINCIPAL$'
+                41 4C 20 4D 45 4E 55 20 50 52 49 4E 
+                43 49 50 41 4C 24                   
+[  61]    0377: 53 65 6C 65 63 63 69 6F 6E 61 20 75   letrero6 DB 'Selecciona una opcion $'
+                6E 61 20 6F 70 63 69 6F 6E 20 24    
+[  62]    038E: 49 6E 67 72 65 73 61 20 75 6E 20 6E   letrero7 DB 'Ingresa un numero: $'
+                75 6D 65 72 6F 3A 20 24             
+[  63]    03A2: 00                                    n1 db ?
+[  64]    03A3: 00                                    n2 db ?
+[  65]        :                                       
+[  66]        :                                       ;OPCION 5
+[  67]    03A4: 2A 20 24                              ASTERISCO DB '* ', '$'
+[  68]    03A7: 28                                    x DB 28H
+[  69]    03A8: 00                                    y DB 0H
+[  70]    03A9: 25                                    x1 DB 37D
+[  71]    03AA: 01                                    CANTAST DB 1 ;1
+[  72]    03AB: 03                                    ANTECH DB 3;3 aux
+[  73]    03AC: 06                                    ANTECH1 DB 6;4 aux
+[  74]    03AD: 0A                                    CASA DB 10;7 aux
+[  75]    03AE: 01                                    aument db 1 ;1  cant
+[  76]    03AF: 07                                    aument2 db 7H;7      cant
+[  77]    03B0: 07                                    aument3 db 7;7      cant
+[  78]        :                                       
+[  79]        :                                       DATOS ENDS
+[  80]        :                                       
+[  81]        :                                       CODIGO SEGMENT
+[  82]        :                                       ASSUME DS:DATOS, CS:CODIGO
+[  83]        :                                       
+[  84]    03C0:                                       INICIO:
+[  85]    03C0: B8 00 00                              MOV AX, DATOS
+[  86]    03C3: 8E D8                                 MOV DS, AX
+[  87]        :                                       
+[  88]    03C5:                                       MENU_PRINCIPAL:
+[  89]        :                                       ;IMPORTAR MACRO DEL MENU PRINCIPAL
+[  90]    03C5: B4 06 B0 00 B7 80 B9 00 00 BA 4F 18   MENUPRINCIPAL
+                CD 10 B8 00 06 B7 F1 B5 00 B1 00 B6 
+                18 B2 4F CD 10 B8 00 06 B7 F1 B5 03 
+                B1 00 B6 18 B2 03 CD 10 B8 00 06 B7 
+                8F B5 02 B1 02 B6 16 B2 4D CD 10 B4 
+                02 B7 00 B6 01 B2 1B CD 10 B4 09 BA 
+                00 00 CD 21 B4 02 B7 00 B6 03 B2 10 
+                CD 10 B4 09 BA 1C 00 CD 21 B4 02 B7 
+                00 B6 04 B2 10 CD 10 B4 09 BA 38 00 
+                CD 21 B4 02 B7 00 B6 05 B2 10 CD 10 
+                B4 09 BA 57 00 CD 21 B4 02 B7 00 B6 
+                06 B2 10 CD 10 B4 09 BA 74 00 CD 21 
+                B4 02 B7 00 B6 07 B2 10 CD 10 B4 09 
+                BA 8A 00 CD 21 B4 02 B7 00 B6 08 B2 
+                10 CD 10 B4 09 BA A1 00 CD 21 B4 02 
+                B7 00 B6 09 B2 10 CD 10 B4 09 BA B9 
+                00 CD 21 B4 01 CD 21 2C 30 A2 C2 00 
+                                                    
+[  91]        :                                       
+[  92]        :                                       ;Comprar las opciones ingresadas
+[  93]    0491: 3C 01                                 CMP AL, 01h
+[  94]    0493: 74 17                                 JE slt_opcion1
+[  95]        :                                       
+[  96]    0495: 3C 02                                 CMP AL, 02h
+[  97]    0497: 74 15                                 JE slt_opcion2
+[  98]        :                                       
+[  99]    0499: 3C 03                                 CMP AL, 03h
+[ 100]    049B: 74 14                                 JE slt_opcion3
+[ 101]        :                                       
+[ 102]    049D: 3C 04                                 CMP AL, 04h
+[ 103]    049F: 74 13                                 JE slt_opcion4
+[ 104]        :                                       
+[ 105]    04A1: 3C 05                                 CMP AL, 05h
+[ 106]    04A3: 74 12                                 JE slt_opcion5
+[ 107]        :                                       
+[ 108]    04A5: 3C 06                                 CMP AL, 06h
+[ 109]    04A7: 74 11                                 JE slt_opcion6
+[ 110]        :                                       
+[ 111]        :                                       
+[ 112]    04A9: E9 19 FF                              JMP MENU_PRINCIPAL ;fin de la etiqueta
+[ 113]        :                                       
+[ 114]        :                                       ;LISTADO DE OPCIONES
+[ 115]    04AC:                                       slt_opcion1:
+[ 116]    04AC: EB 0F                                 JMP opcion1
+[ 117]        :                                       
+[ 118]    04AE:                                       slt_opcion2:
+[ 119]    04AE: E9 77 01                              JMP opcion2
+[ 120]        :                                       
+[ 121]    04B1:                                       slt_opcion3:
+[ 122]    04B1: E9 A1 02                              JMP opcion3
+[ 123]        :                                       
+[ 124]    04B4:                                       slt_opcion4:
+[ 125]    04B4: E9 FF 03                              JMP opcion4
+[ 126]        :                                       
+[ 127]    04B7:                                       slt_opcion5:
+[ 128]    04B7: E9 3E 0C                              JMP opcion5
+[ 129]        :                                       
+[ 130]    04BA:                                       slt_opcion6:
+[ 131]    04BA: E9 34 0D                              JMP opcion6
+[ 132]        :                                       
+[ 133]        :                                       ;---------------------------------------------------------------------------------------------+
+[ 134]        :                                       ;OPCION DE LA PRESENTACION DEL EQUIPO
+[ 135]    04BD:                                       opcion1:
+[ 136]        :                                       ;Importar macro de la presentacion
+[ 137]    04BD: B4 06 B0 00 B7 80 B9 00 00 BA 4F 18   PRESENTACION
+                CD 10 B8 00 06 B7 0F B5 00 B1 00 B6 
+                01 B2 4F CD 10 B8 00 06 B7 60 B5 02 
+                B1 00 B6 18 B2 13 CD 10 B8 00 06 B7 
+                70 B5 02 B1 10 B6 18 B2 4F CD 10 B4 
+                02 B7 00 B6 01 B2 14 CD 10 B4 09 BA 
+                FF 00 CD 21 B4 02 B7 00 B6 03 B2 1C 
+                CD 10 B4 09 BA 28 01 CD 21 B4 02 B7 
+                00 B6 04 B2 20 CD 10 B4 09 BA 48 01 
+                CD 21 B4 02 B7 00 B6 05 B2 1F CD 10 
+                B4 09 BA 62 01 CD 21 B4 02 B7 00 B6 
+                08 B2 1C CD 10 B4 09 BA 7C 01 CD 21 
+                B4 02 B7 00 B6 09 B2 20 CD 10 B4 09 
+                BA 98 01 CD 21 B4 02 B7 00 B6 0A B2 
+                1A CD 10 B4 09 BA AE 01 CD 21 B4 02 
+                B7 00 B6 0B B2 1C CD 10 B4 09 BA D0 
+                01 CD 21 B4 02 B7 00 B6 0C B2 20 CD 
+                10 B4 09 BA ED 01 CD 21 B4 02 B7 00 
+                B6 16 B2 20 CD 10 B4 09 BA C3 00 CD 
+                21 B4 01 CD 21                      
+[ 138]    05A6:                                       SUBMENU:
+[ 139]    05A6: B4 06 B0 00 B7 80 B9 00 00 BA 4F 18   LIMPIAR 10000000B
+                CD 10                               
+[ 140]        :                                       ;Dar color a la pantalla
+[ 141]        :                                       ;                    U1  U2   U3   U4
+[ 142]    05B4: B8 00 06 B7 0F B5 00 B1 00 B6 01 B2   COLOREAR 00001111B, 00D, 00D, 01D, 79D ;negro
+                4F CD 10                            
+[ 143]    05C3: B8 00 06 B7 60 B5 02 B1 00 B6 18 B2   COLOREAR 01100000B, 02D, 00D, 24D, 15D ;cafe
+                0F CD 10                            
+[ 144]    05D2: B8 00 06 B7 70 B5 02 B1 10 B6 18 B2   COLOREAR 01110000B, 02D, 16D, 24D, 79D ;blanco
+                4F CD 10                            
+[ 145]    05E1: B4 02 B7 00 B6 03 B2 10 CD 10 B4 09   UBICCAD 03D, 16D, CADENASUB1
+                BA D6 00 CD 21                      
+[ 146]    05F2: B4 02 B7 00 B6 04 B2 10 CD 10 B4 09   UBICCAD 04D, 16D, CADENASUB2
+                BA F5 00 CD 21                      
+[ 147]    0603: B4 02 B7 00 B6 05 B2 10 CD 10 B4 09   	   UBICCAD 05D, 16D, CADENA7
+                BA B9 00 CD 21                      
+[ 148]        :                                       
+[ 149]    0614: B4 01                                 MOV AH, 01H
+[ 150]    0616: CD 21                                 INT 21H
+[ 151]    0618: 2C 30                                 SUB AL, 30H
+[ 152]    061A: 3C 01                                 CMP AL, 01D  ;COMPRARA NUMERO CON REGISTRO AL
+[ 153]    061C: 75 03 E9 A4 FD                        JE MENU_PRINCIPAL
+[ 154]    0621: 3C 02                                 CMP AL, 02D
+[ 155]    0623: 75 03 E9 D1 0B                        JE FIN
+[ 156]        :                                       
+[ 157]        :                                       ;---------------------------------------------------------------------------------------------+
+[ 158]        :                                       ;OPCION COMPARACION DE NUMEROS
+[ 159]    0628:                                       opcion2:
+[ 160]        :                                       
+[ 161]    0628: B4 06 B0 00 B7 80 B9 00 00 BA 4F 18   COMPARACION ;MACRO PARA PEDIR NUMEROS
+                CD 10 B8 00 06 B7 0F B5 00 B1 00 B6 
+                01 B2 4F CD 10 B8 00 06 B7 60 B5 02 
+                B1 00 B6 18 B2 13 CD 10 B8 00 06 B7 
+                70 B5 02 B1 10 B6 18 B2 4F CD 10 B4 
+                02 B7 00 B6 01 B2 14 CD 10 B4 09 BA 
+                02 02 CD 21 B4 02 B7 00 B6 03 B2 10 
+                CD 10 B4 09 BA 2E 02 CD 21 B4 01 CD 
+                21 2C 30 A2 A2 02 B4 02 B7 00 B6 04 
+                B2 10 CD 10 B4 09 BA 49 02 CD 21 B4 
+                01 CD 21 2C 30 A2 A3 02             
+[ 162]    06A8: A0 A3 02                              MOV AL, DIG2OP2
+[ 163]    06AB: 38 06 A2 02                           CMP DIG1OP2, AL
+[ 164]    06AF: 77 04                                 JA MAYOR
+[ 165]    06B1: 72 15                                 JB MENOR
+[ 166]    06B3: 74 26                                 JE IGUAL
+[ 167]        :                                       
+[ 168]    06B5:                                       MAYOR:
+[ 169]    06B5: B4 02 B7 00 B6 05 B2 10 CD 10 B4 09   UBICCAD 05D, 16D, CADENAMAYOR
+                BA 64 02 CD 21                      
+[ 170]    06C6: EB 26                                 jmp SUBMENUOP2
+[ 171]        :                                       
+[ 172]    06C8:                                       MENOR:
+[ 173]    06C8: B4 02 B7 00 B6 05 B2 10 CD 10 B4 09   UBICCAD 05D, 16D, CADENAMENOR
+                BA 7D 02 CD 21                      
+[ 174]    06D9: EB 13                                 JMP SUBMENUOP2
+[ 175]        :                                       
+[ 176]    06DB:                                       IGUAL:
+[ 177]    06DB: B4 02 B7 00 B6 05 B2 10 CD 10 B4 09   UBICCAD 05D, 16D, CADENAIGUAL
+                BA 96 02 CD 21                      
+[ 178]    06EC: EB 00                                 JMP SUBMENUOP2
+[ 179]        :                                       
+[ 180]    06EE:                                       SUBMENUOP2:
+[ 181]    06EE: B4 02 B7 00 B6 0A B2 10 CD 10 B4 09   UBICCAD 10D, 16D, CADENASMOP21
+                BA A5 02 CD 21                      
+[ 182]    06FF: B4 02 B7 00 B6 0B B2 10 CD 10 B4 09   UBICCAD 11D, 16D, CADENASMOP22
+                BA C5 02 CD 21                      
+[ 183]    0710: B4 02 B7 00 B6 0C B2 10 CD 10 B4 09   	     UBICCAD 12D, 16D, CADENASMOP23
+                BA E4 02 CD 21                      
+[ 184]    0721: B4 02 B7 00 B6 0D B2 10 CD 10 B4 09   	     UBICCAD 13D, 16D, CADENA7
+                BA B9 00 CD 21                      
+[ 185]    0732: B4 01 CD 21 2C 30 A2 A4 02            PEDIRN DIGISOP2
+[ 186]        :                                       
+[ 187]    073B: A0 A4 02                              MOV AL, DIGISOP2
+[ 188]    073E: 38 06 EE 02                           CMP OPCIONSI, AL ;COMPRARA NUMERO CON REGISTRO AL
+[ 189]    0742: 74 0E                                 JE slt_opcion2r
+[ 190]        :                                       
+[ 191]    0744: 3C 01                                 CMP AL, 01D
+[ 192]    0746: 75 03 E9 7A FC                        JE MENU_PRINCIPAL
+[ 193]        :                                       
+[ 194]    074B: 3C 02                                 CMP AL, 02D
+[ 195]    074D: 75 03 E9 A7 0A                        JE FIN
+[ 196]        :                                       
+[ 197]    0752:                                       slt_opcion2r:
+[ 198]    0752: E9 D3 FE                              JMP opcion2
+[ 199]        :                                       ;---------------------------------------------------------------------------------------------+
+[ 200]        :                                       
+[ 201]        :                                       ;---------------------------------------------------------------------------------------------+
+[ 202]        :                                       ;OPCION OPERACIONES CON ARCHIVOS
+[ 203]    0755:                                       opcion3:
+[ 204]    0755:                                       mostrar_menuar:       ; etiqueta donde vamos a redireccionar nuestro menu
+[ 205]        :                                       
+[ 206]    0755: B4 06 B0 00 B7 80 B9 00 00 BA 4F 18   SUBMENUARC ;importar macro para el submenu de archivos
+                CD 10 B8 00 06 B7 0F B5 00 B1 00 B6 
+                01 B2 4F CD 10 B8 00 06 B7 60 B5 02 
+                B1 00 B6 18 B2 0F CD 10 B8 00 06 B7 
+                70 B5 02 B1 10 B6 18 B2 4F CD 10 B4 
+                02 B7 00 B6 01 B2 1C CD 10 B4 09 BA 
+                F0 02 CD 21 B4 02 B7 00 B6 03 B2 10 
+                CD 10 B4 09 BA 10 03 CD 21 B4 02 B7 
+                00 B6 04 B2 10 CD 10 B4 09 BA 21 03 
+                CD 21 B4 02 B7 00 B6 05 B2 10 CD 10 
+                B4 09 BA 32 03 CD 21 B4 02 B7 00 B6 
+                06 B2 10 CD 10 B4 09 BA 47 03 CD 21 
+                B4 02 B7 00 B6 07 B2 10 CD 10 B4 09 
+                BA 59 03 CD 21 B4 02 B7 00 B6 08 B2 
+                10 CD 10 B4 09 BA 77 03 CD 21 B4 02 
+                B7 00 B6 09 B2 10 CD 10 B4 09 BA 8E 
+                03 CD 21 B4 01 CD 21                
+[ 207]        :                                       
+[ 208]    081C: 3C 31                                 cmp al,31h      ; compara las opciones que el usuario ingresa
+[ 209]    081E: 74 13                                 je sub_opcion1ar  ; si presiono 1 realizara un salto intermedio a la opcion 1
+[ 210]    0820: 3C 32                                 cmp al,32h      ; si presiono 2 realiza el salto intermedio a la opcion 2
+[ 211]    0822: 74 11                                 je sub_opcion2ar
+[ 212]    0824: 3C 33                                 cmp al,33h
+[ 213]    0826: 74 0F                                 je sub_opcion3ar
+[ 214]    0828: 3C 34                                 cmp al,34h
+[ 215]    082A: 74 0D                                 je sub_opcion4ar
+[ 216]    082C: 3C 35                                 cmp al,35h
+[ 217]    082E: 74 0B                                 je sub_opcion5ar
+[ 218]        :                                       
+[ 219]    0830: E9 22 FF                              jmp mostrar_menuar    ; si no actua por default y va de nuevo a presentar el menu
+[ 220]        :                                       
+[ 221]    0833:                                       sub_opcion1ar:
+[ 222]    0833: EB 08                                 jmp opcion1ar     ; cuando llegamos a esta opcion saltamos a la primera opcion
+[ 223]    0835:                                       sub_opcion2ar:
+[ 224]    0835: EB 20                                 jmp opcion2ar
+[ 225]    0837:                                       sub_opcion3ar:
+[ 226]    0837: EB 38                                 jmp opcion3ar
+[ 227]    0839:                                       sub_opcion4ar:
+[ 228]    0839: EB 50                                 jmp opcion4ar
+[ 229]    083B:                                       sub_opcion5ar:
+[ 230]    083B: EB 68                                 jmp opcion5ar
+[ 231]        :                                       
+[ 232]        :                                       ;opcion 1 CREAR
+[ 233]    083D:                                       opcion1ar:
+[ 234]        :                                       
+[ 235]    083D: B4 06 B0 00 B7 0F B9 00 00 BA 4F 18   LIMPIAR 00001111B  ; funcion para limpiar pantalla
+                CD 10                               
+[ 236]    084B: B4 01 CD 21 2C 30 A2 C2 00            PEDIRN DIGITO;PEDIR DIGITO
+[ 237]        :                                       
+[ 238]    0854: E9 FE FE                              jmp mostrar_menuar
+[ 239]        :                                       
+[ 240]        :                                       ;opcion 2 LEER
+[ 241]    0857:                                       opcion2ar:
+[ 242]    0857: B4 06 B0 00 B7 0F B9 00 00 BA 4F 18   LIMPIAR 00001111B  ; funcion para limpiar pantalla
+                CD 10                               
+[ 243]    0865: B4 01 CD 21 2C 30 A2 C2 00            PEDIRN DIGITO;PEDIR DIGITO
+[ 244]        :                                       
+[ 245]    086E: E9 E4 FE                              jmp mostrar_menuar
+[ 246]        :                                       
+[ 247]        :                                       ;opcion 3  MODIFICAR
+[ 248]    0871:                                       opcion3ar:
+[ 249]    0871: B4 06 B0 00 B7 0F B9 00 00 BA 4F 18   LIMPIAR 00001111B  ; funcion para limpiar pantalla
+                CD 10                               
+[ 250]    087F: B4 01 CD 21 2C 30 A2 C2 00            PEDIRN DIGITO;PEDIR DIGITO
+[ 251]    0888: E9 CA FE                              jmp mostrar_menuar
+[ 252]        :                                       
+[ 253]        :                                       
+[ 254]        :                                       ;opcion 4  BORRAR
+[ 255]    088B:                                       opcion4ar:
+[ 256]    088B: B4 06 B0 00 B7 0F B9 00 00 BA 4F 18   LIMPIAR 00001111B  ; funcion para limpiar pantalla
+                CD 10                               
+[ 257]    0899: B4 01 CD 21 2C 30 A2 C2 00            PEDIRN DIGITO;PEDIR DIGITO
+[ 258]        :                                       
+[ 259]    08A2: E9 B0 FE                              jmp mostrar_menuar
+[ 260]        :                                       
+[ 261]        :                                       ;opcion 5 REGRESAR
+[ 262]    08A5:                                       opcion5ar:
+[ 263]    08A5: B4 06 B0 00 B7 0F B9 00 00 BA 4F 18   LIMPIAR 00001111B  ; funcion para limpiar pantalla
+                CD 10                               
+[ 264]        :                                       
+[ 265]    08B3: E9 0F FB                              JMP MENU_PRINCIPAL
+[ 266]        :                                       ;---------------------------------------------------------------------------------------------+
+[ 267]        :                                       
+[ 268]        :                                       ;---------------------------------------------------------------------------------------------+
+[ 269]        :                                       ;OPCION REGALOS NAVIDENOS
+[ 270]    08B6:                                       opcion4:
+[ 271]        :                                       ;Llamar al procedimiento para dibujar los regalos
+[ 272]    08B6: E8 00 00                              CALL REGALOS
+[ 273]        :                                       
+[ 274]    08B9:                                       REGALOS PROC NEAR
+[ 275]    08B9: B4 06 B0 00 B7 8F B9 00 00 BA 4F 18   REGALITOS ;importar macro regalitos
+                CD 10 B8 00 06 B7 44 B5 02 B1 0D B6 
+                02 B2 11 CD 10 B8 00 06 B7 44 B5 03 
+                B1 0B B6 03 B2 14 CD 10 B8 00 06 B7 
+                44 B5 03 B1 1B B6 03 B2 1F CD 10 B8 
+                00 06 B7 44 B5 04 B1 0B B6 04 B2 14 
+                CD 10 B8 00 06 B7 44 B5 04 B1 1B B6 
+                04 B2 1F CD 10 B8 00 06 B7 44 B5 05 
+                B1 0B B6 05 B2 0E CD 10 B8 00 06 B7 
+                44 B5 05 B1 12 B6 05 B2 14 CD 10 B8 
+                00 06 B7 44 B5 05 B1 19 B6 05 B2 21 
+                CD 10 B8 00 06 B7 44 B5 06 B1 15 B6 
+                06 B2 15 CD 10 B8 00 06 B7 44 B5 06 
+                B1 0E B6 06 B2 0F CD 10 B8 00 06 B7 
+                44 B5 06 B1 19 B6 06 B2 1A CD 10 B8 
+                00 06 B7 44 B5 06 B1 1F B6 06 B2 21 
+                CD 10 B8 00 06 B7 44 B5 07 B1 0F B6 
+                07 B2 10 CD 10 B8 00 06 B7 44 B5 07 
+                B1 15 B6 07 B2 18 CD 10 B8 00 06 B7 
+                44 B5 07 B1 1B B6 07 B2 1B CD 10 B8 
+                00 06 B7 44 B5 07 B1 1E B6 07 B2 1F 
+                CD 10 B8 00 06 B7 44 B5 08 B1 0F B6 
+                08 B2 19 CD 10 B8 00 06 B7 44 B5 08 
+                B1 1B B6 08 B2 1F CD 10 B8 00 06 B7 
+                FF B5 09 B1 09 B6 09 B2 14 CD 10 B8 
+                00 06 B7 44 B5 09 B1 15 B6 09 B2 18 
+                CD 10 B8 00 06 B7 FF B5 09 B1 19 B6 
+                09 B2 25 CD 10 B8 00 06 B7 FF B5 0A 
+                B1 09 B6 0A B2 14 CD 10 B8 00 06 B7 
+                44 B5 0A B1 15 B6 0A B2 18 CD 10 B8 
+                00 06 B7 FF B5 0A B1 19 B6 0A B2 25 
+                CD 10 B8 00 06 B7 FF B5 0B B1 09 B6 
+                0B B2 14 CD 10 B8 00 06 B7 44 B5 0B 
+                B1 15 B6 0B B2 18 CD 10 B8 00 06 B7 
+                FF B5 0B B1 19 B6 0B B2 25 CD 10 B8 
+                00 06 B7 44 B5 0C B1 0E B6 0C B2 21 
+                CD 10 B8 00 06 B7 44 B5 0D B1 0E B6 
+                0D B2 21 CD 10 B8 00 06 B7 44 B5 0E 
+                B1 0E B6 0E B2 21 CD 10 B8 00 06 B7 
+                FF B5 0F B1 0E B6 0F B2 14 CD 10 B8 
+                00 06 B7 44 B5 0F B1 15 B6 0F B2 18 
+                CD 10 B8 00 06 B7 FF B5 0F B1 19 B6 
+                0F B2 21 CD 10 B8 00 06 B7 FF B5 10 
+                B1 0E B6 10 B2 14 CD 10 B8 00 06 B7 
+                44 B5 10 B1 15 B6 10 B2 18 CD 10 B8 
+                00 06 B7 FF B5 10 B1 19 B6 10 B2 21 
+                CD 10 B8 00 06 B7 FF B5 11 B1 0E B6 
+                11 B2 14 CD 10 B8 00 06 B7 44 B5 11 
+                B1 15 B6 11 B2 18 CD 10 B8 00 06 B7 
+                FF B5 11 B1 19 B6 11 B2 21 CD 10 B8 
+                00 06 B7 FF B5 12 B1 0E B6 12 B2 14 
+                CD 10 B8 00 06 B7 44 B5 12 B1 15 B6 
+                12 B2 18 CD 10 B8 00 06 B7 FF B5 12 
+                B1 19 B6 12 B2 21 CD 10 B8 00 06 B7 
+                FF B5 13 B1 0E B6 13 B2 14 CD 10 B8 
+                00 06 B7 44 B5 13 B1 15 B6 13 B2 18 
+                CD 10 B8 00 06 B7 FF B5 13 B1 19 B6 
+                13 B2 21 CD 10 B8 00 06 B7 FF B5 14 
+                B1 0E B6 14 B2 14 CD 10 B8 00 06 B7 
+                44 B5 14 B1 15 B6 14 B2 18 CD 10 B8 
+                00 06 B7 FF B5 14 B1 19 B6 14 B2 21 
+                CD 10 B8 00 06 B7 FF B5 15 B1 0E B6 
+                15 B2 14 CD 10 B8 00 06 B7 44 B5 15 
+                B1 15 B6 15 B2 18 CD 10 B8 00 06 B7 
+                FF B5 15 B1 19 B6 15 B2 21 CD 10 B8 
+                00 06 B7 FF B5 16 B1 0E B6 16 B2 14 
+                CD 10 B8 00 06 B7 44 B5 16 B1 15 B6 
+                16 B2 18 CD 10 B8 00 06 B7 FF B5 16 
+                B1 19 B6 16 B2 21 CD 10 B8 00 06 B7 
+                FF B5 17 B1 0E B6 17 B2 14 CD 10 B8 
+                00 06 B7 44 B5 17 B1 15 B6 17 B2 18 
+                CD 10 B8 00 06 B7 FF B5 17 B1 19 B6 
+                17 B2 21 CD 10 B8 00 06 B7 44 B5 02 
+                B1 3F B6 02 B2 43 CD 10 B8 00 06 B7 
+                44 B5 03 B1 32 B6 03 B2 35 CD 10 B8 
+                00 06 B7 44 B5 03 B1 3D B6 03 B2 45 
+                CD 10 B8 00 06 B7 44 B5 04 B1 32 B6 
+                04 B2 35 CD 10 B8 00 06 B7 44 B5 04 
+                B1 3D B6 04 B2 45 CD 10 B8 00 06 B7 
+                44 B5 05 B1 31 B6 05 B2 32 CD 10 B8 
+                00 06 B7 44 B5 05 B1 35 B6 05 B2 35 
+                CD 10 B8 00 06 B7 44 B5 05 B1 3D B6 
+                05 B2 3E CD 10 B8 00 06 B7 44 B5 05 
+                B1 42 B6 05 B2 45 CD 10 B8 00 06 B7 
+                44 B5 06 B1 2F B6 06 B2 32 CD 10 B8 
+                00 06 B7 44 B5 06 B1 35 B6 06 B2 37 
+                CD 10 B8 00 06 B7 44 B5 06 B1 3D B6 
+                06 B2 3E CD 10 B8 00 06 B7 44 B5 06 
+                B1 42 B6 06 B2 43 CD 10 B8 00 06 B7 
+                44 B5 07 B1 32 B6 07 B2 33 CD 10 B8 
+                00 06 B7 44 B5 07 B1 37 B6 07 B2 3A 
+                CD 10 B8 00 06 B7 44 B5 07 B1 3B B6 
+                07 B2 3C CD 10 B8 00 06 B7 44 B5 07 
+                B1 42 B6 07 B2 43 CD 10 B8 00 06 B7 
+                44 B5 08 B1 34 B6 08 B2 37 CD 10 B8 
+                00 06 B7 44 B5 08 B1 37 B6 08 B2 41 
+                CD 10 B8 00 06 B7 33 B5 09 B1 2B B6 
+                09 B2 47 CD 10 B8 00 06 B7 33 B5 0A 
+                B1 2B B6 0A B2 47 CD 10 B8 00 06 B7 
+                33 B5 0B B1 2B B6 0B B2 47 CD 10 B8 
+                00 06 B7 FF B5 0C B1 2F B6 0C B2 43 
+                CD 10 B8 00 06 B7 33 B5 0D B1 2F B6 
+                0D B2 31 CD 10 B8 00 06 B7 FF B5 0D 
+                B1 32 B6 0D B2 35 CD 10 B8 00 06 B7 
+                33 B5 0D B1 36 B6 0D B2 3A CD 10 B8 
+                00 06 B7 FF B5 0D B1 3B B6 0D B2 3E 
+                CD 10 B8 00 06 B7 33 B5 0D B1 3F B6 
+                0D B2 43 CD 10 B8 00 06 B7 33 B5 0E 
+                B1 2F B6 0E B2 2F CD 10 B8 00 06 B7 
+                FF B5 0E B1 30 B6 0E B2 35 CD 10 B8 
+                00 06 B7 33 B5 0E B1 36 B6 0E B2 38 
+                CD 10 B8 00 06 B7 FF B5 0E B1 39 B6 
+                0E B2 3E CD 10 B8 00 06 B7 33 B5 0E 
+                B1 3F B6 0E B2 41 CD 10 B8 00 06 B7 
+                FF B5 0E B1 42 B6 0E B2 43 CD 10 B8 
+                00 06 B7 FF B5 0F B1 2F B6 0F B2 33 
+                CD 10 B8 00 06 B7 33 B5 0F B1 34 B6 
+                0F B2 37 CD 10 B8 00 06 B7 FF B5 0F 
+                B1 38 B6 0F B2 3C CD 10 B8 00 06 B7 
+                33 B5 0F B1 3D B6 0F B2 40 CD 10 B8 
+                00 06 B7 FF B5 0F B1 41 B6 0F B2 43 
+                CD 10 B8 00 06 B7 FF B5 10 B1 2F B6 
+                10 B2 31 CD 10 B8 00 06 B7 33 B5 10 
+                B1 32 B6 10 B2 35 CD 10 B8 00 06 B7 
+                FF B5 10 B1 36 B6 10 B2 3A CD 10 B8 
+                00 06 B7 33 B5 10 B1 3B B6 10 B2 3E 
+                CD 10 B8 00 06 B7 FF B5 10 B1 3F B6 
+                10 B2 43 CD 10 B8 00 06 B7 FF B5 11 
+                B1 2F B6 11 B2 2F CD 10 B8 00 06 B7 
+                33 B5 11 B1 30 B6 11 B2 33 CD 10 B8 
+                00 06 B7 FF B5 11 B1 34 B6 11 B2 37 
+                CD 10 B8 00 06 B7 33 B5 11 B1 38 B6 
+                11 B2 3C CD 10 B8 00 06 B7 FF B5 11 
+                B1 3D B6 11 B2 41 CD 10 B8 00 06 B7 
+                33 B5 11 B1 42 B6 11 B2 43 CD 10 B8 
+                00 06 B7 33 B5 12 B1 2F B6 12 B2 33 
+                CD 10 B8 00 06 B7 FF B5 12 B1 34 B6 
+                12 B2 37 CD 10 B8 00 06 B7 33 B5 12 
+                B1 38 B6 12 B2 3C CD 10 B8 00 06 B7 
+                FF B5 12 B1 3D B6 12 B2 41 CD 10 B8 
+                00 06 B7 33 B5 12 B1 42 B6 12 B2 43 
+                CD 10 B8 00 06 B7 33 B5 13 B1 2F B6 
+                13 B2 31 CD 10 B8 00 06 B7 FF B5 13 
+                B1 32 B6 13 B2 35 CD 10 B8 00 06 B7 
+                33 B5 13 B1 36 B6 13 B2 3B CD 10 B8 
+                00 06 B7 FF B5 13 B1 3C B6 13 B2 3F 
+                CD 10 B8 00 06 B7 33 B5 13 B1 40 B6 
+                13 B2 43 CD 10 B8 00 06 B7 33 B5 14 
+                B1 2F B6 14 B2 2F CD 10 B8 00 06 B7 
+                FF B5 14 B1 30 B6 14 B2 33 CD 10 B8 
+                00 06 B7 33 B5 14 B1 34 B6 14 B2 37 
+                CD 10 B8 00 06 B7 FF B5 14 B1 38 B6 
+                14 B2 3D CD 10 B8 00 06 B7 33 B5 14 
+                B1 3E B6 14 B2 41 CD 10 B8 00 06 B7 
+                FF B5 14 B1 42 B6 14 B2 43 CD 10 B8 
+                00 06 B7 FF B5 15 B1 2F B6 15 B2 33 
+                CD 10 B8 00 06 B7 33 B5 15 B1 34 B6 
+                15 B2 37 CD 10 B8 00 06 B7 FF B5 15 
+                B1 38 B6 15 B2 3C CD 10 B8 00 06 B7 
+                33 B5 15 B1 3D B6 15 B2 40 CD 10 B8 
+                00 06 B7 FF B5 15 B1 41 B6 15 B2 43 
+                CD 10 B8 00 06 B7 FF B5 16 B1 2F B6 
+                16 B2 31 CD 10 B8 00 06 B7 33 B5 16 
+                B1 32 B6 16 B2 35 CD 10 B8 00 06 B7 
+                FF B5 16 B1 36 B6 16 B2 3A CD 10 B8 
+                00 06 B7 33 B5 16 B1 3B B6 16 B2 3E 
+                CD 10 B8 00 06 B7 FF B5 16 B1 3F B6 
+                16 B2 43 CD 10 B8 00 06 B7 FF B5 17 
+                B1 2F B6 17 B2 2F CD 10 B8 00 06 B7 
+                33 B5 17 B1 30 B6 17 B2 33 CD 10 B8 
+                00 06 B7 FF B5 17 B1 34 B6 17 B2 37 
+                CD 10 B8 00 06 B7 33 B5 17 B1 38 B6 
+                17 B2 3C CD 10 B8 00 06 B7 FF B5 17 
+                B1 3D B6 17 B2 41 CD 10 B8 00 06 B7 
+                33 B5 17 B1 42 B6 17 B2 43 CD 10 B4 
+                01 CD 21 2C 30 A2 C2 00             
+[ 276]        :                                       ENDP
+[ 277]        :                                       
+[ 278]    10F5: E9 CD F2                              JMP MENU_PRINCIPAL
+[ 279]        :                                       ;-------------------------------+
+[ 280]        :                                       ;---------------------------------------------------------------------------------------------+
+[ 281]        :                                       ;OPCION CASA DE ASTERISCOS
+[ 282]    10F8:                                       opcion5:
+[ 283]        :                                       ;Llamar procedimiento
+[ 284]    10F8: E8 00 00                              CALL CASAAST
+[ 285]        :                                       ;Crear procedimiento
+[ 286]    10FB:                                       CASAAST PROC NEAR
+[ 287]        :                                       
+[ 288]    10FB: B4 06                                 MOV AH,06H       ;Funcion que limpia la pantalla
+[ 289]    10FD: B0 00                                 MOV AL,00H
+[ 290]    10FF: B7 00                                 MOV BH,00000000B ;Dar color inicial negro-negro
+[ 291]    1101: B9 00 00                              MOV CX,0000H     ;coordenadas inicio
+[ 292]    1104: BA 4F 18                              MOV DX,184fH    ; coordenadas final
+[ 293]    1107: CD 10                                 INT 10H
+[ 294]    1109: B8 00 06 B7 30 B5 00 B1 00 B6 05 B2   COLOREAR 00110000B, 00D, 00D, 05D, 79D  ;Dar color al panel
+                4F CD 10                            
+[ 295]    1118: B8 00 06 B7 20 B5 06 B1 00 B6 18 B2   COLOREAR 00100000B, 06D, 00D, 24D, 79D  ;Dar color al panel
+                4F CD 10                            
+[ 296]    1127: B9 00 00                              MOV CX,0000H ;Reiniciar el contador
+[ 297]        :                                       
+[ 298]        :                                       ;------------------------------------------------------------ antena
+[ 299]    112A:                                       Comparacion1:
+[ 300]    112A: B4 02                                 MOV ah, 02h   ;Posicionar el cursor
+[ 301]    112C: B7 00                                 MOV bh, 00h
+[ 302]    112E: 8A 36 A8 03                           MOV dh, y     ;Coordenadas para filas
+[ 303]    1132: 8A 16 A7 03                           MOV dl, x     ;Coordenadas para columnas
+[ 304]    1136: CD 10                                 int 10h
+[ 305]    1138: 8B D9                                 MOV bx, cx    ;Almacenar contador (temporal)
+[ 306]        :                                       
+[ 307]    113A: B9 00 00                              MOV CX,0000h  ;Se reinicia el contador
+[ 308]    113D: 33 C9                                 XOR cx, cx
+[ 309]        :                                       
+[ 310]    113F:                                       Comparacion2:
+[ 311]    113F: B4 02                                 MOV ah, 02h      ;Inicio de la impresion del *
+[ 312]    1141: 8A 16 A4 03                           MOV dl,ASTERISCO
+[ 313]    1145: CD 21                                 INT 21h
+[ 314]    1147: FE C1                                 INC cl
+[ 315]    1149: 3A 0E AE 03                           CMP cl,aument    ;Comprara la cantidad de * con la que se declaro
+[ 316]    114D: 72 F0                                 JB Comparacion2  ;sino se ha cumplido regresa al mismo
+[ 317]        :                                       
+[ 318]    114F: 8B CB                                 MOV cx, bx       ;Extrae contador principal
+[ 319]    1151: FE 06 A8 03                           INC y
+[ 320]    1155: FE C1                                 INC cl           ;Incrementar en 1 el contador cl
+[ 321]    1157: 3A 0E AB 03                           CMP cl, ANTECH   ;Repetir 3 veces
+[ 322]    115B: 72 CD                                 JB Comparacion1
+[ 323]        :                                       ;------------------------------------------------------------
+[ 324]        :                                       
+[ 325]        :                                       ;------------------------------------------------------------ techo
+[ 326]    115D:                                       Comparacion3:
+[ 327]    115D: B4 02                                 MOV ah, 02h
+[ 328]    115F: B7 00                                 MOV bh, 00h
+[ 329]    1161: 8A 36 A8 03                           MOV dh, y
+[ 330]    1165: 8A 16 A9 03                           MOV dl, X1 ;Se declara una variable que tenga la ubicacion
+[ 331]    1169: FE 0E A9 03                           DEC x1 ;Con el decremento se disminuye una posicion
+[ 332]    116D: CD 10                                 INT 10h
+[ 333]    116F: 8B D9                                 MOV bx, cx
+[ 334]    1171: 33 C9                                 XOR cx, cx
+[ 335]        :                                       
+[ 336]    1173:                                       Comparacion4:
+[ 337]    1173: B4 02                                 MOV ah, 02h
+[ 338]    1175: 8A 16 A4 03                           MOV dl, ASTERISCO
+[ 339]    1179: CD 21                                 INT 21h
+[ 340]    117B: FE C1                                 INC cl
+[ 341]    117D: 3A 0E AF 03                           CMP cl, aument2 ;Compara si se ha cumplido con la cantidad
+[ 342]    1181: 72 F0                                 JB Comparacion4
+[ 343]        :                                       
+[ 344]    1183: 8B CB                                 MOV cx, bx
+[ 345]    1185: FE 06 A8 03                           INC y
+[ 346]    1189: 80 06 AF 03 02                        ADD aument2, 2
+[ 347]    118E: FE C1                                 INC cl          ;Incrementa en 1 el contador cl
+[ 348]    1190: 3A 0E AC 03                           CMP cl, ANTECH1 ;Repetir 3 VECES
+[ 349]    1194: 72 C7                                 JB Comparacion3
+[ 350]        :                                       ;------------------------------------------------------------
+[ 351]        :                                       
+[ 352]        :                                       ;------------------------------------------------------------ habitaciones
+[ 353]    1196:                                       Comparacion5:
+[ 354]    1196: B4 02                                 MOV ah, 02h
+[ 355]    1198: B7 00                                 MOV bh, 00h
+[ 356]    119A: 8A 36 A8 03                           MOV dh, y
+[ 357]    119E: B2 25                                 MOV dl, 37D ;Definir el punto de inicio
+[ 358]    11A0: CD 10                                 INT 10h
+[ 359]    11A2: 8B D9                                 MOV bx, cx
+[ 360]    11A4: 33 C9                                 XOR cx, cx
+[ 361]        :                                       
+[ 362]    11A6:                                       Comparacion6:
+[ 363]    11A6: B4 02                                 MOV ah, 02h
+[ 364]    11A8: 8A 16 A4 03                           MOV dl, ASTERISCO
+[ 365]    11AC: CD 21                                 INT 21h
+[ 366]    11AE: FE C1                                 INC cl
+[ 367]    11B0: 3A 0E B0 03                           CMP cl, aument3
+[ 368]    11B4: 72 F0                                 JB Comparacion6
+[ 369]        :                                       
+[ 370]    11B6: 8B CB                                 MOV cx, bx
+[ 371]    11B8: FE 06 A8 03                           INC y
+[ 372]        :                                       
+[ 373]    11BC: FE C1                                 INC cl          ;Incrementa en 1 el contador cl
+[ 374]    11BE: 3A 0E AD 03                           cmp cl, CASA ;Repetir 7 veces
+[ 375]    11C2: 72 D2                                 JB Comparacion5
+[ 376]        :                                       
+[ 377]    11C4: B9 00 00                              MOV CX,0000H ;Reiniciar el contador
+[ 378]        :                                       
+[ 379]    11C7: C6 06 A8 03 00                        MOV y, 0H     ;Coordenadas para filas
+[ 380]    11CC: C6 06 A7 03 28                        MOV x, 28h     ;Coordenadas para columnas
+[ 381]    11D1: C6 06 A9 03 25                        MOV X1, 37D
+[ 382]    11D6: C6 06 AF 03 07                        MOV aument2, 7H
+[ 383]    11DB: CD 10                                 int 10h
+[ 384]    11DD: 8B D9                                 MOV bx, cx    ;Almacenar contador (temporal)
+[ 385]        :                                       
+[ 386]    11DF: B9 00 00                              MOV CX,0000h  ;Se reinicia el contador
+[ 387]    11E2: 33 C9                                 XOR cx, cx
+[ 388]        :                                       
+[ 389]    11E4: B4 01 CD 21 2C 30 A2 C2 00            PEDIRN DIGITO
+[ 390]    11ED: E9 D5 F1                              JMP MENU_PRINCIPAL
+[ 391]        :                                       
+[ 392]    11F0: C3                                    RET
+[ 393]        :                                       CASAAST ENDP
+[ 394]        :                                       
+[ 395]        :                                       ;---------------------------------------------------------------------------------------------+
+[ 396]        :                                       
+[ 397]        :                                       ;---------------------------------------------------------------------------------------------+
+[ 398]        :                                       ;CERRAR EL PROGRAMA
+[ 399]    11F1:                                       opcion6:
+[ 400]    11F1: B4 4C                                 MOV AH, 4CH
+[ 401]    11F3: CD 21                                 INT 21H
+[ 402]    11F5: E9 CD F1                              jmp MENU_PRINCIPAL
+[ 403]    11F8: C3                                    ret
+[ 404]        :                                       ;---------------------------------------------------------------------------------------------+
+[ 405]        :                                       
+[ 406]    11F9:                                       FIN:
+[ 407]    11F9: B4 4C                                 MOV AH, 4CH
+[ 408]    11FB: CD 21                                 INT 21H
+[ 409]        :                                       
+[ 410]        :                                       CODIGO ENDS
+[ 411]        :                                       END INICIO
+[ 412]        :                                       
+[ 413]        :                                       
+[ 414]        :                                       
+ 
+===================================================================================================
+ 
+EXE HEADER - bytes from 0000 to 01FF inclusive.
+
+0000: 4D      -   exe signature (M)
+0001: 5A      -   exe signature (Z)
+0002: FD      -   bytes on last page (l.byte)
+0003: 01      -   bytes on last page (h.byte)
+0004: 0A      -   512 byte pages in file (l.byte)
+0005: 00      -   512 byte pages in file (h.byte)
+0006: 01      -   relocations (l.byte)
+0007: 00      -   relocations (h.byte)
+0008: 20      -   paragraphs in header (l.byte)
+0009: 00      -   paragraphs in header (h.byte)
+000A: 00      -   minimum memory (l.byte)
+000B: 00      -   minimum memory (h.byte)
+000C: FF      -   maximum memory (l.byte)
+000D: FF      -   maximum memory (h.byte)
+000E: 00      -   SS - stack segment (l.byte)
+000F: 00      -   SS - stack segment (h.byte)
+0010: 00      -   SP - stack pointer (l.byte)
+0011: 00      -   SP - stack pointer (h.byte)
+0012: 19      -   check sum (l.byte)
+0013: 54      -   check sum (h.byte)
+0014: 00      -   IP - instruction pointer (l.byte)
+0015: 00      -   IP - instruction pointer (h.byte)
+0016: 3C      -   CS - code segment (l.byte)
+0017: 00      -   CS - code segment (h.byte)
+0018: 1E      -   relocation table adress (l.byte)
+0019: 00      -   relocation table adress (h.byte)
+001A: 00      -   overlay number (l.byte)
+001B: 00      -   overlay number (h.byte)
+001C: 01      -   signature (l.byte)
+001D: 00      -   signature (h.byte)
+001E: 01      -   relocation table - offset inside segment (l.byte)
+001F: 00      -   relocation table - offset inside segment (h.byte)
+0020: 3C      -   relocation table - segment anchor (l.byte)
+0021: 00      -   relocation table - segment anchor (h.byte)
+0022 to 01FF  -   reserved relocation area  (00) 
+
+
+
+
+===================================================================================================
