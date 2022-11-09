@@ -53,29 +53,28 @@ DATOS SEGMENT
 
     ;OPCION 3
     letrero0 DB '<<<<< SUBMENU DE ARCHIVOS >>>>>$'
-    letrero1 DB '1. CREAR ARCHIVO$'
-    letrero2 DB '2. ABRIR ARCHIVO$'
-    letrero3 DB '3. MODIFICAR ARCHIVO$'
-    letrero4 DB '4. BORRAR ARCHIVO$'
-    letrero5 DB '5. REGRESAR AL MENU PRINCIPAL$'
-    letrero6 DB 'Selecciona una opcion $'
-    letrero7 DB 'Ingresa un numero: $'
-    letrero8 db 10,13,'ARCHIVO CREADO $'
-    letrero9 db 10,13,'ARCHIVO ESCRITO CON EXITO $'
-    letrero10 db 10,13,"ARCHIVO ELIMINADO $"
-    letrero11 db 10,13,'EL CERRADO DE ARCHIVO SE HACE AUTOMATICO $'
-    mg db 10,13,"NOMBRE DEL ARCHIVO: $"
-    cadenar db 'CADENA EN EL ARCHIVO :', '$'
-    nombre db 'txtproyect.txt',0 
-    
-    MENSAJE_INICIAL DB 10,13,'ESCRIBE S SI PARA INICIAR EL PROGRAMA $'
-    MENSAJE_INICIAL_2 DB 10,13,'ESCRIBE N PARA TERMINAR EL PROGRAMA $'
-    
-    vec db 50 dup('$') 
-    imp db ?
-    handle db 0
-    opcion db 0 
-    linea db 10,13,'$'
+    msg1 db "EDITOR DE TEXTO $"
+    op1 db  "1.- CREAR ARCHIVO $" 
+    op2 db  "2.- LEER ARCHIVO $"
+    op3 db  "3.- ESCRIBIR ARCHIVO $"
+    op4 db  "4.- ELIMINAR ARCHIVO $"
+    op5 db  "5.- SALIR $"
+    msg2 db "ELIJA SU OPCION : $"
+    ruta db 'C', ':', '\', '$',00h
+    nombre db 13 dup('$')
+    decision1 db  "ESTA SEGURO QUE DESEA AGREGAR ESTE CAMBIO S/N : $"
+    decision2 db  "ESTA SEGURO QUE DESEA ELIMINAR S/N : $"  
+    texto db  "CONTENIDO : $"  
+    msg3 db "ARCHIVO CREADO : $" 
+    exito db "EXITO : $"
+    cancel db  "OPERACION CANCELADA : $"  
+    mg db "INGRESA EL NOMBRE DEL ARCHIVO : $"
+    mg2 db "INGRESA EL CONTENIDO : $"      
+    errorm db "HUBO UN ERROR $"   
+    opcion db 0
+    handle dw 0
+    aux dw 0
+    vec db 50 dup('$')
     
     
     ;OPCION 5
@@ -98,7 +97,7 @@ CODIGO SEGMENT
     
 INICIO:
     MOV AX, DATOS
-    MOV DS, AX
+    MOV DS, AX 
     
     MENU_PRINCIPAL:
         ;IMPORTAR MACRO DEL MENU PRINCIPAL  
@@ -231,78 +230,85 @@ INICIO:
                     
             SUBMENUARC ;importar macro para el submenu de archivos
             
-            cmp al,31h      ; compara las opciones que el usuario ingresa 
-            je sub_opcion1ar  ; si presiono 1 realizara un salto intermedio a la opcion 1
-            cmp al,32h      ; si presiono 2 realiza el salto intermedio a la opcion 2
-            je sub_opcion2ar
-            cmp al,33h
-            je sub_opcion3ar
-            cmp al,34h
-            je sub_opcion4ar
-            cmp al,35h
-            je sub_opcion5ar
+            mov opcion,al
+            cmp opcion,31h      ; compara las opciones que el usuario ingresa 
+            je sub_opcion1  ; si presiono 1 realizara un salto intermedio a la opcion 1
+            cmp opcion,32h      ; si presiono 2 realiza el salto intermedio a la opcion 2
+            je sub_opcion2
+            cmp opcion,33h
+            je sub_opcion3
+            cmp opcion,34h
+            je sub_opcion4
+            cmp opcion,35h
+            je sub_opcion5
             
         jmp mostrar_menuar    ; si no actua por default y va de nuevo a presentar el menu
-        
-          sub_opcion1ar:
-            jmp opcion1ar     ; cuando llegamos a esta opcion saltamos a la primera opcion
-          sub_opcion2ar:
+    
+          sub_opcion1:
+            jmp opcion1ar    ; cuando llegamos a esta opcion saltamos a la primera opcion
+          sub_opcion2:
             jmp opcion2ar
-          sub_opcion3ar:
+          sub_opcion3:
             jmp opcion3ar
-          sub_opcion4ar:
+          sub_opcion4:
             jmp opcion4ar
-          sub_opcion5ar:
-            jmp opcion5ar            
+          sub_opcion5:
+            jmp opcion5ar          
             
         ;opcion 1 CREAR         
         opcion1ar:        
             
             LIMPIAR 00001111B  ; funcion para limpiar pantalla        
-            ;crear
-            mov ah,3ch
-            mov cx,00h
-            mov dx,offset nombre
+            UBICCAD 01D, 15D, mg
+            mov si, 3
+            call ciclo   
+            
+            mov ah, 3ch
+            mov cx,0  
+            mov dx,offset ruta
             int 21h
-            jc mostrar_menuar
-            UBICCAD 09D, 16D, letrero8 
-            mov ah,01h      ; solicita una opcion al usuario
-            int 21h
+            mov handle, ax
+            
             mov bx,ax
             mov ah,3eh
             int 21h
             
+            UBICCAD 04D, 15D, msg3 
+            mov ah,01h
+            int 21h
             
         jmp mostrar_menuar  
         
         ;opcion 2 LEER        
         opcion2ar:
             LIMPIAR 00001111B  ; funcion para limpiar pantalla 
-            UBICCAD 03D, 16D,CADENAR
-            mov ah,3dh   
-            mov al, 0h
-            mov dx,offset nombre
-            int 21h
-            mov ah,42h
-            mov al,00h
-            mov bx,ax
-            mov cx,50
-            int 21h
-            mov ah,3fh
-            mov bx,ax
-            mov cx,10
-            mov si,00h
-            mov dx,offset vec  
-            int 21h
-            mov ah,09h
-            int 21h
-            mov ah,01h      ; solicita una opcion al usuario
-            int 21h
+            UBICCAD 01D, 15D, mg
+            mov si,3
+            call ciclo
             
-            ;cerrar
-            mov ah,3eh
-            int 21h
+            abrir:
+                mov ah,3dh
+                mov al,0h
+                mov dx,offset ruta
+                int 21h
+                mov handle,ax
+                
+                ;leer archivo
+                mov ah,3fh ;Lectura del archivo
+                mov bx,handle
+                mov dx,offset vec
+                mov cx,aux
+                int 21h 
+                
+                UBICCAD 02D, 15D, texto
+                
+                UBICCAD 03D, 15D, vec
+                
+                mov ah,01h
+                int 21h
         
+                mov ah,3eh
+                int 21h
             
         jmp mostrar_menuar   
         
@@ -310,45 +316,83 @@ INICIO:
         
         opcion3ar:            
             LIMPIAR 00001111B      
-            mov ah,01h
-            int 21h
-            mov vec[si],al
-            inc si
-            cmp al,0dh
-            ja opcion3ar
-            jb opcion3ar
-            
-            editar:
-                mov ah,3dh
-                mov al,1h ; 0h lectura, 1h escritura, 2h l y e
-                mov dx,offset nombre 
-                int 21h
-                jc mostrar_menuar
-                mov bx,ax
-                mov cx,si
-                mov dx, offset vec
-                mov ah,40h
-                int 21h
-                imprime letrero9
+            UBICCAD 01D, 15D, mg2
+            mov si,0
+            pedir:
                 mov ah,01h
                 int 21h
-                ;leer 
+                mov vec[si], al
+                inc si
+                cmp al, 0dh
+                ja pedir
+                jb pedir
+                
+                UBICCAD 03D, 15D, decision1
+                mov ah,01h
+                int 21h
+                mov opcion,al
+                mov ah,02h
+                mov dl,02h
+                int 21h
+                cmp opcion,6eh
+                je cancelar
+             
+             editar:
+                push si
+                mov si,3
+                UBICCAD 06D, 15D, mg
+                call ciclo
+                pop si
+                mov ah,3dh
+                mov al,1h
+                mov dx,offset ruta
+                int 21h
+                jc error
+                
+                mov bx,ax
+                mov cx,si
+                mov dx,offset vec
+                mov ah,40h
+                int 21h
                 cmp cx,ax
-                jne mostrar_menuar
+                jne error
                 mov ah,3eh
-                int 21h  
+                int 21h
+                UBICCAD 10D, 15D,exito
+                mov ah,01h
+                int 21h 
         jmp mostrar_menuar 
                    
                    
         ;opcion 4  BORRAR 
-        opcion4ar:
-            LIMPIAR 00001111B  ; funcion para limpiar pantalla
-            mov ah,41h
-            mov dx,offset nombre
-            int 21h
-            jc mostrar_menuar
-            imprime letrero10        
-            PEDIRN DIGITO;PEDIR DIGITO 
+        opcion4ar: 
+            LIMPIAR 00001111B  
+            UBICCAD 01D, 15D, decision2
+                mov ah,01h
+                int 21h
+                mov opcion,al
+                mov ah,02h
+                mov dl,0ah
+                int 21h
+                cmp opcion,6eh
+                je cancelar
+                
+                mov bx,ax
+                mov ah,3eh
+                int 21h 
+                
+                UBICCAD 03D, 15D, mg
+                
+                mov si,3
+                call ciclo 
+                
+                mov ah,41h  
+                mov cx,0
+                mov dx,offset ruta
+                int 21h      
+                mov handle,ax
+                
+                UBICCAD 07D, 15D, exito 
             
         jmp mostrar_menuar 
         
@@ -356,7 +400,16 @@ INICIO:
         opcion5ar:
             LIMPIAR 00001111B  ; funcion para limpiar pantalla                  
         
-        JMP MENU_PRINCIPAL 
+        JMP MENU_PRINCIPAL
+        
+        ciclo:
+            ciclo
+            
+        cancelar:
+            cancelar
+        error:
+            error
+ 
     ;---------------------------------------------------------------------------------------------+  
     
     ;---------------------------------------------------------------------------------------------+

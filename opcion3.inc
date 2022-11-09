@@ -13,13 +13,12 @@ SUBMENUARC MACRO
 	COLOREAR 11111111B, 00D, 14D, 24D, 14D
 
       UBICCAD 01D, 28D, letrero0
-      UBICCAD 03D, 16D, letrero1
-      UBICCAD 04D, 16D, letrero2
-    	UBICCAD 05D, 16D, letrero3
-    	UBICCAD 06D, 16D, letrero4
-      UBICCAD 07D, 16D, letrero5
-    	UBICCAD 08D, 16D, letrero6   
-    	UBICCAD 09D, 16D, letrero7          
+      UBICCAD 03D, 16D, op1
+      UBICCAD 04D, 16D, op2
+    	UBICCAD 05D, 16D, op3
+    	UBICCAD 06D, 16D, op4
+      UBICCAD 07D, 16D, op5
+    	UBICCAD 08D, 16D, msg2          
       
 	mov ah,01h      ; solicita una opcion al usuario
       int 21h
@@ -31,4 +30,29 @@ imprime macro cadena
     mov ah,09h
     mov dx,offset cadena
     int 21h
+endm
+
+ ciclo macro
+            mov ah,1h
+            int 21h
+            cmp al,13d
+            je terminar
+            cmp si,16
+            je terminar
+            mov ruta[si], al
+            inc si
+            jb ciclo
+            terminar:
+            mov ruta[si],0
+            ret 
+endm
+
+cancelar macro
+            imprime cancel
+            jmp mostrar_menuar
+endm
+
+error macro 
+            imprime errorm
+            jmp mostrar_menuar
 endm
