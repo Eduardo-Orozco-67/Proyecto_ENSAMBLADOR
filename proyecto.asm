@@ -65,7 +65,8 @@ DATOS SEGMENT
     decision1 db  "ESTA SEGURO QUE DESEA AGREGAR ESTE CAMBIO S/N : $"
     decision2 db  "ESTA SEGURO QUE DESEA ELIMINAR S/N : $"  
     texto db  "CONTENIDO : $"  
-    msg3 db "ARCHIVO CREADO : $" 
+    msg3 db "ARCHIVO CREADO : $"
+    msg4 db "NO SE OLVIDE AGREGAR EL .txt AL FINAL DEL NOMBRE DEL ARCHIVO $" 
     exito db "EXITO : $"
     cancel db  "OPERACION CANCELADA : $"  
     mg db "INGRESA EL NOMBRE DEL ARCHIVO : $"
@@ -258,8 +259,18 @@ INICIO:
         ;opcion 1 CREAR         
         opcion1ar:        
             
-            LIMPIAR 00001111B  ; funcion para limpiar pantalla        
-            UBICCAD 01D, 15D, mg
+            LIMPIAR 00001111B  ; funcion para limpiar pantalla
+            COLOREAR 11110001B, 00D, 00D, 24D, 79D ;blanco-azul
+            COLOREAR 10001111B, 02D, 02D, 22D, 77D ;gris   
+            COLOREAR 11111111B, 00D, 00D, 24D, 2D
+    	    COLOREAR 11111111B, 00D, 4D, 24D, 4D
+    	    COLOREAR 11111111B, 00D, 6D, 24D, 6D
+    	    COLOREAR 11111111B, 00D, 8D, 24D, 8D
+    	    COLOREAR 11111111B, 00D, 10D, 24D, 10D
+    	    COLOREAR 11111111B, 00D, 12D, 24D, 12D
+    	    COLOREAR 11111111B, 00D, 14D, 24D, 14D  
+    	    UBICCAD 03D, 15D, msg4       
+            UBICCAD 05D, 15D, mg
             mov si, 3
             call ciclo   
             
@@ -273,7 +284,7 @@ INICIO:
             mov ah,3eh
             int 21h
             
-            UBICCAD 04D, 15D, msg3 
+            UBICCAD 07D, 15D, msg3 
             mov ah,01h
             int 21h
             
@@ -282,7 +293,18 @@ INICIO:
         ;opcion 2 LEER        
         opcion2ar:
             LIMPIAR 00001111B  ; funcion para limpiar pantalla 
-            UBICCAD 01D, 15D, mg
+            LIMPIAR 00001111B  ; funcion para limpiar pantalla  
+            COLOREAR 11110001B, 00D, 00D, 24D, 79D ;blanco-azul
+            COLOREAR 10001111B, 02D, 02D, 22D, 77D ;gris   
+            COLOREAR 11111111B, 00D, 00D, 24D, 2D
+    	    COLOREAR 11111111B, 00D, 4D, 24D, 4D
+    	    COLOREAR 11111111B, 00D, 6D, 24D, 6D
+    	    COLOREAR 11111111B, 00D, 8D, 24D, 8D
+    	    COLOREAR 11111111B, 00D, 10D, 24D, 10D
+    	    COLOREAR 11111111B, 00D, 12D, 24D, 12D
+    	    COLOREAR 11111111B, 00D, 14D, 24D, 14D  
+    	    UBICCAD 03D, 15D, msg4  
+            UBICCAD 05D, 15D, mg
             mov si,3
             call ciclo
             
@@ -300,9 +322,9 @@ INICIO:
                 mov cx,aux
                 int 21h 
                 
-                UBICCAD 02D, 15D, texto
+                UBICCAD 07D, 15D, texto
                 
-                UBICCAD 03D, 15D, vec
+                UBICCAD 09D, 15D, vec
                 
                 mov ah,01h
                 int 21h
@@ -315,8 +337,19 @@ INICIO:
         ;opcion 3  MODIFICAR
         
         opcion3ar:            
-            LIMPIAR 00001111B      
-            UBICCAD 01D, 15D, mg2
+            LIMPIAR 00001111B
+            LIMPIAR 00001111B  ; funcion para limpiar pantalla  
+            COLOREAR 11110001B, 00D, 00D, 24D, 79D ;blanco-azul
+            COLOREAR 10001111B, 02D, 02D, 22D, 77D ;gris   
+            COLOREAR 11111111B, 00D, 00D, 24D, 2D
+    	    COLOREAR 11111111B, 00D, 4D, 24D, 4D
+    	    COLOREAR 11111111B, 00D, 6D, 24D, 6D
+    	    COLOREAR 11111111B, 00D, 8D, 24D, 8D
+    	    COLOREAR 11111111B, 00D, 10D, 24D, 10D
+    	    COLOREAR 11111111B, 00D, 12D, 24D, 12D
+    	    COLOREAR 11111111B, 00D, 14D, 24D, 14D 
+    	    UBICCAD 03D, 15D, msg4        
+            UBICCAD 05D, 15D, mg2
             mov si,0
             pedir:
                 mov ah,01h
@@ -327,7 +360,7 @@ INICIO:
                 ja pedir
                 jb pedir
                 
-                UBICCAD 03D, 15D, decision1
+                UBICCAD 07D, 15D, decision1
                 mov ah,01h
                 int 21h
                 mov opcion,al
@@ -340,7 +373,7 @@ INICIO:
              editar:
                 push si
                 mov si,3
-                UBICCAD 06D, 15D, mg
+                UBICCAD 09D, 15D, mg
                 call ciclo
                 pop si
                 mov ah,3dh
@@ -358,7 +391,7 @@ INICIO:
                 jne error
                 mov ah,3eh
                 int 21h
-                UBICCAD 10D, 15D,exito
+                UBICCAD 11D, 15D,exito
                 mov ah,01h
                 int 21h 
         jmp mostrar_menuar 
@@ -366,8 +399,19 @@ INICIO:
                    
         ;opcion 4  BORRAR 
         opcion4ar: 
-            LIMPIAR 00001111B  
-            UBICCAD 01D, 15D, decision2
+            LIMPIAR 00001111B
+            LIMPIAR 00001111B  ; funcion para limpiar pantalla  
+            COLOREAR 11110001B, 00D, 00D, 24D, 79D ;blanco-azul
+            COLOREAR 10001111B, 02D, 02D, 22D, 77D ;gris   
+            COLOREAR 11111111B, 00D, 00D, 24D, 2D
+    	    COLOREAR 11111111B, 00D, 4D, 24D, 4D
+    	    COLOREAR 11111111B, 00D, 6D, 24D, 6D
+    	    COLOREAR 11111111B, 00D, 8D, 24D, 8D
+    	    COLOREAR 11111111B, 00D, 10D, 24D, 10D
+    	    COLOREAR 11111111B, 00D, 12D, 24D, 12D
+    	    COLOREAR 11111111B, 00D, 14D, 24D, 14D 
+    	    UBICCAD 03D, 15D, msg4  
+            UBICCAD 05D, 15D, decision2
                 mov ah,01h
                 int 21h
                 mov opcion,al
@@ -381,7 +425,7 @@ INICIO:
                 mov ah,3eh
                 int 21h 
                 
-                UBICCAD 03D, 15D, mg
+                UBICCAD 07D, 15D, mg
                 
                 mov si,3
                 call ciclo 
@@ -392,7 +436,7 @@ INICIO:
                 int 21h      
                 mov handle,ax
                 
-                UBICCAD 07D, 15D, exito 
+                UBICCAD 09D, 15D, exito 
             
         jmp mostrar_menuar 
         
