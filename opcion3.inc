@@ -56,3 +56,138 @@ error macro
             imprime errorm
             jmp mostrar_menuar
 endm
+
+crear macro
+     		UBICCAD 03D, 15D, msg4       
+            UBICCAD 05D, 15D, mg
+            mov si, 3
+            call ciclo   
+            
+            mov ah, 3ch
+            mov cx,0  
+            mov dx,offset ruta
+            int 21h
+            mov handle, ax
+            
+            mov bx,ax
+            mov ah,3eh
+            int 21h
+            
+            UBICCAD 07D, 15D, msg3 
+            mov ah,01h
+            int 21h
+            
+endm
+
+
+abrir macro
+            UBICCAD 03D, 15D, msg4  
+            UBICCAD 05D, 15D, mg
+            mov si,3
+            call ciclo
+            
+            abrir:
+                mov ah,3dh
+                mov al,0h
+                mov dx,offset ruta
+                int 21h
+                mov handle,ax
+                
+                ;leer archivo
+                mov ah,3fh ;Lectura del archivo
+                mov bx,handle
+                mov dx,offset vec
+                mov cx,aux
+                int 21h 
+                
+                UBICCAD 07D, 15D, texto
+                
+                UBICCAD 09D, 15D, vec
+                
+                mov ah,01h
+                int 21h
+        
+                mov ah,3eh
+                int 21h
+endm
+
+pedir macro
+		UBICCAD 03D, 15D, msg4        
+            UBICCAD 05D, 15D, mg2
+            mov si,0
+            pedir:
+                mov ah,01h
+                int 21h
+                mov vec[si], al
+                inc si
+                cmp al, 0dh
+                ja pedir
+                jb pedir
+                
+                UBICCAD 07D, 15D, decision1
+                mov ah,01h
+                int 21h
+                mov opcion,al
+                mov ah,02h
+                mov dl,02h
+                int 21h
+                cmp opcion,6eh
+                je cancelar
+             
+             editar:
+                push si
+                mov si,3
+                UBICCAD 09D, 15D, mg
+                call ciclo
+                pop si
+                mov ah,3dh
+                mov al,1h
+                mov dx,offset ruta
+                int 21h
+                jc error
+                
+                mov bx,ax
+                mov cx,si
+                mov dx,offset vec
+                mov ah,40h
+                int 21h
+                cmp cx,ax
+                jne error
+                mov ah,3eh
+                int 21h
+                UBICCAD 11D, 15D,exito
+                mov ah,01h
+                int 21h 
+endm
+
+borrar macro
+		UBICCAD 03D, 15D, msg4  
+            UBICCAD 05D, 15D, decision2
+                mov ah,01h
+                int 21h
+                mov opcion,al
+                mov ah,02h
+                mov dl,0ah
+                int 21h
+                cmp opcion,6eh
+                je cancelar
+                
+                mov bx,ax
+                mov ah,3eh
+                int 21h 
+                
+                UBICCAD 07D, 15D, mg
+                
+                mov si,3
+                call ciclo 
+                
+                mov ah,41h  
+                mov cx,0
+                mov dx,offset ruta
+                int 21h      
+                mov handle,ax
+                
+                UBICCAD 09D, 15D, exito
+			mov ah,01h
+                int 21h 
+endm

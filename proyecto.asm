@@ -11,7 +11,7 @@ DATOS SEGMENT
     CADENA1 DB "1.- PRESENTACION DEL EQUIPO$"
     CADENA2 DB "2.- COMPARACION DE DOS NUMEROS$"
     CADENA3 DB "3.- OPERACIONES CON ARCHIVOS$"
-    CADENA4 DB "4.- REGALOS NAVIDENOS$"  
+    CADENA4 DB "4.- REGALOS NAVIDENIOS$"  
     CADENA5 DB "5.- CASA DE ASTERISCOS$"
     CADENA6 DB "6.- SALIR DEL PROGRAMA $"
     CADENA7 DB "OPCION: $"   
@@ -45,7 +45,7 @@ DATOS SEGMENT
     DIGISOP2 DB ?          
     
     ;SUBMENU OPCION 2
-    CADENASMOP21 DB "S.- DESEA OTRA COMPARACION? (S)$" 
+    CADENASMOP21 DB "DESEA OTRA COMPARACION? (CUALQUIER TECLA EXCEPTO 1 Y 2)$" 
     CADENASMOP22 DB "1.- REGRESAR AL MENU PRINCIPAL$"
     CADENASMOP23 DB "2.- SALIR$"
     OPCIONSI DB 115 ;115"s$"
@@ -225,7 +225,6 @@ INICIO:
     ;---------------------------------------------------------------------------------------------+ 
     
     ;---------------------------------------------------------------------------------------------+
-    ;OPCION OPERACIONES CON ARCHIVOS 
     opcion3:    
         mostrar_menuar:       ; etiqueta donde vamos a redireccionar nuestro menu
                     
@@ -261,76 +260,33 @@ INICIO:
             
             LIMPIAR 00001111B  ; funcion para limpiar pantalla
             COLOREAR 11110001B, 00D, 00D, 24D, 79D ;blanco-azul
-            COLOREAR 10001111B, 02D, 02D, 22D, 77D ;gris   
+            COLOREAR 10001111B, 02D, 02D, 22D, 77D ;gris  
             COLOREAR 11111111B, 00D, 00D, 24D, 2D
-    	    COLOREAR 11111111B, 00D, 4D, 24D, 4D
-    	    COLOREAR 11111111B, 00D, 6D, 24D, 6D
-    	    COLOREAR 11111111B, 00D, 8D, 24D, 8D
-    	    COLOREAR 11111111B, 00D, 10D, 24D, 10D
-    	    COLOREAR 11111111B, 00D, 12D, 24D, 12D
-    	    COLOREAR 11111111B, 00D, 14D, 24D, 14D  
-    	    UBICCAD 03D, 15D, msg4       
-            UBICCAD 05D, 15D, mg
-            mov si, 3
-            call ciclo   
-            
-            mov ah, 3ch
-            mov cx,0  
-            mov dx,offset ruta
-            int 21h
-            mov handle, ax
-            
-            mov bx,ax
-            mov ah,3eh
-            int 21h
-            
-            UBICCAD 07D, 15D, msg3 
-            mov ah,01h
-            int 21h
+        	COLOREAR 11111111B, 00D, 4D, 24D, 4D
+        	COLOREAR 11111111B, 00D, 6D, 24D, 6D
+        	COLOREAR 11111111B, 00D, 8D, 24D, 8D
+        	COLOREAR 11111111B, 00D, 10D, 24D, 10D
+        	COLOREAR 11111111B, 00D, 12D, 24D, 12D
+        	COLOREAR 11111111B, 00D, 14D, 24D, 14D        
+           
+            crear
             
         jmp mostrar_menuar  
         
         ;opcion 2 LEER        
         opcion2ar:
-            LIMPIAR 00001111B  ; funcion para limpiar pantalla 
             LIMPIAR 00001111B  ; funcion para limpiar pantalla  
             COLOREAR 11110001B, 00D, 00D, 24D, 79D ;blanco-azul
-            COLOREAR 10001111B, 02D, 02D, 22D, 77D ;gris   
+            COLOREAR 10001111B, 02D, 02D, 22D, 77D ;gris  
             COLOREAR 11111111B, 00D, 00D, 24D, 2D
-    	    COLOREAR 11111111B, 00D, 4D, 24D, 4D
-    	    COLOREAR 11111111B, 00D, 6D, 24D, 6D
-    	    COLOREAR 11111111B, 00D, 8D, 24D, 8D
-    	    COLOREAR 11111111B, 00D, 10D, 24D, 10D
-    	    COLOREAR 11111111B, 00D, 12D, 24D, 12D
-    	    COLOREAR 11111111B, 00D, 14D, 24D, 14D  
-    	    UBICCAD 03D, 15D, msg4  
-            UBICCAD 05D, 15D, mg
-            mov si,3
-            call ciclo
+        	COLOREAR 11111111B, 00D, 4D, 24D, 4D
+        	COLOREAR 11111111B, 00D, 6D, 24D, 6D
+        	COLOREAR 11111111B, 00D, 8D, 24D, 8D
+        	COLOREAR 11111111B, 00D, 10D, 24D, 10D
+        	COLOREAR 11111111B, 00D, 12D, 24D, 12D
+        	COLOREAR 11111111B, 00D, 14D, 24D, 14D 
             
-            abrir:
-                mov ah,3dh
-                mov al,0h
-                mov dx,offset ruta
-                int 21h
-                mov handle,ax
-                
-                ;leer archivo
-                mov ah,3fh ;Lectura del archivo
-                mov bx,handle
-                mov dx,offset vec
-                mov cx,aux
-                int 21h 
-                
-                UBICCAD 07D, 15D, texto
-                
-                UBICCAD 09D, 15D, vec
-                
-                mov ah,01h
-                int 21h
-        
-                mov ah,3eh
-                int 21h
+            abrir
             
         jmp mostrar_menuar   
         
@@ -338,105 +294,35 @@ INICIO:
         
         opcion3ar:            
             LIMPIAR 00001111B
-            LIMPIAR 00001111B  ; funcion para limpiar pantalla  
             COLOREAR 11110001B, 00D, 00D, 24D, 79D ;blanco-azul
-            COLOREAR 10001111B, 02D, 02D, 22D, 77D ;gris   
+            COLOREAR 10001111B, 02D, 02D, 22D, 77D ;gris  
             COLOREAR 11111111B, 00D, 00D, 24D, 2D
-    	    COLOREAR 11111111B, 00D, 4D, 24D, 4D
-    	    COLOREAR 11111111B, 00D, 6D, 24D, 6D
-    	    COLOREAR 11111111B, 00D, 8D, 24D, 8D
-    	    COLOREAR 11111111B, 00D, 10D, 24D, 10D
-    	    COLOREAR 11111111B, 00D, 12D, 24D, 12D
-    	    COLOREAR 11111111B, 00D, 14D, 24D, 14D 
-    	    UBICCAD 03D, 15D, msg4        
-            UBICCAD 05D, 15D, mg2
-            mov si,0
-            pedir:
-                mov ah,01h
-                int 21h
-                mov vec[si], al
-                inc si
-                cmp al, 0dh
-                ja pedir
-                jb pedir
-                
-                UBICCAD 07D, 15D, decision1
-                mov ah,01h
-                int 21h
-                mov opcion,al
-                mov ah,02h
-                mov dl,02h
-                int 21h
-                cmp opcion,6eh
-                je cancelar
-             
-             editar:
-                push si
-                mov si,3
-                UBICCAD 09D, 15D, mg
-                call ciclo
-                pop si
-                mov ah,3dh
-                mov al,1h
-                mov dx,offset ruta
-                int 21h
-                jc error
-                
-                mov bx,ax
-                mov cx,si
-                mov dx,offset vec
-                mov ah,40h
-                int 21h
-                cmp cx,ax
-                jne error
-                mov ah,3eh
-                int 21h
-                UBICCAD 11D, 15D,exito
-                mov ah,01h
-                int 21h 
+        	COLOREAR 11111111B, 00D, 4D, 24D, 4D
+        	COLOREAR 11111111B, 00D, 6D, 24D, 6D
+        	COLOREAR 11111111B, 00D, 8D, 24D, 8D
+        	COLOREAR 11111111B, 00D, 10D, 24D, 10D
+        	COLOREAR 11111111B, 00D, 12D, 24D, 12D
+        	COLOREAR 11111111B, 00D, 14D, 24D, 14D      
+            
+            pedir
+            
         jmp mostrar_menuar 
                    
                    
         ;opcion 4  BORRAR 
         opcion4ar: 
             LIMPIAR 00001111B
-            LIMPIAR 00001111B  ; funcion para limpiar pantalla  
             COLOREAR 11110001B, 00D, 00D, 24D, 79D ;blanco-azul
-            COLOREAR 10001111B, 02D, 02D, 22D, 77D ;gris   
+            COLOREAR 10001111B, 02D, 02D, 22D, 77D ;gris  
             COLOREAR 11111111B, 00D, 00D, 24D, 2D
-    	    COLOREAR 11111111B, 00D, 4D, 24D, 4D
-    	    COLOREAR 11111111B, 00D, 6D, 24D, 6D
-    	    COLOREAR 11111111B, 00D, 8D, 24D, 8D
-    	    COLOREAR 11111111B, 00D, 10D, 24D, 10D
-    	    COLOREAR 11111111B, 00D, 12D, 24D, 12D
-    	    COLOREAR 11111111B, 00D, 14D, 24D, 14D 
-    	    UBICCAD 03D, 15D, msg4  
-            UBICCAD 05D, 15D, decision2
-                mov ah,01h
-                int 21h
-                mov opcion,al
-                mov ah,02h
-                mov dl,0ah
-                int 21h
-                cmp opcion,6eh
-                je cancelar
-                
-                mov bx,ax
-                mov ah,3eh
-                int 21h 
-                
-                UBICCAD 07D, 15D, mg
-                
-                mov si,3
-                call ciclo 
-                
-                mov ah,41h  
-                mov cx,0
-                mov dx,offset ruta
-                int 21h      
-                mov handle,ax
-                
-                UBICCAD 09D, 15D, exito 
+        	COLOREAR 11111111B, 00D, 4D, 24D, 4D
+        	COLOREAR 11111111B, 00D, 6D, 24D, 6D
+        	COLOREAR 11111111B, 00D, 8D, 24D, 8D
+        	COLOREAR 11111111B, 00D, 10D, 24D, 10D
+        	COLOREAR 11111111B, 00D, 12D, 24D, 12D
+        	COLOREAR 11111111B, 00D, 14D, 24D, 14D 
+            
+            borrar
             
         jmp mostrar_menuar 
         
@@ -453,7 +339,6 @@ INICIO:
             cancelar
         error:
             error
- 
     ;---------------------------------------------------------------------------------------------+  
     
     ;---------------------------------------------------------------------------------------------+
@@ -488,7 +373,6 @@ INICIO:
             MOV dh, y     ;Coordenadas para filas
             MOV dl, x     ;Coordenadas para columnas
             int 10h    
-            MOV bx, cx    ;Almacenar contador (temporal)
                 
             MOV CX,0000h  ;Se reinicia el contador
             XOR cx, cx
@@ -573,7 +457,6 @@ INICIO:
             XOR cx, cx
             
             PEDIRN DIGITO
-            JMP MENU_PRINCIPAL
             
         RET
         CASAAST ENDP        
