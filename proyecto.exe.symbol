@@ -113,14 +113,14 @@ OPCION4                  	00D34     	-1        	LABEL     	CODIGO
 OPCION5                  	01573     	-1        	LABEL     	CODIGO    
 CASAAST                  	01576     	-1        	NEAR      	CODIGO    
 COMPARACION1             	015A5     	-1        	LABEL     	CODIGO    
-COMPARACION2             	015B8     	-1        	LABEL     	CODIGO    
-COMPARACION3             	015D6     	-1        	LABEL     	CODIGO    
-COMPARACION4             	015EC     	-1        	LABEL     	CODIGO    
-COMPARACION5             	0160F     	-1        	LABEL     	CODIGO    
-COMPARACION6             	0161F     	-1        	LABEL     	CODIGO    
-OPCION6                  	01667     	-1        	LABEL     	CODIGO    
-FIN                      	0166F     	-1        	LABEL     	CODIGO    
+COMPARACION2             	015BA     	-1        	LABEL     	CODIGO    
+COMPARACION3             	015D8     	-1        	LABEL     	CODIGO    
+COMPARACION4             	015EE     	-1        	LABEL     	CODIGO    
+COMPARACION5             	01611     	-1        	LABEL     	CODIGO    
+COMPARACION6             	01621     	-1        	LABEL     	CODIGO    
+OPCION6                  	0166C     	-1        	LABEL     	CODIGO    
+FIN                      	01674     	-1        	LABEL     	CODIGO    
 ===================================================================================================
-[ 12/11/2022  --  10:55:43 ] 
+[ 12/11/2022  --  11:32:01 ] 
 < END >
  

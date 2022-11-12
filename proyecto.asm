@@ -352,7 +352,7 @@ INICIO:
     ;---------------------------------------------------------------------------------------------+
     ;OPCION CASA DE ASTERISCOS 
     opcion5:
-      ;Llamar procedimiento
+     ;Llamar procedimiento
       CALL CASAAST 
       ;Crear procedimiento
       CASAAST PROC NEAR    
@@ -373,6 +373,7 @@ INICIO:
             MOV dh, y     ;Coordenadas para filas
             MOV dl, x     ;Coordenadas para columnas
             int 10h    
+            MOV bx, cx    ;Almacenar contador (temporal)
                 
             MOV CX,0000h  ;Se reinicia el contador
             XOR cx, cx
@@ -457,6 +458,7 @@ INICIO:
             XOR cx, cx
             
             PEDIRN DIGITO
+            JMP MENU_PRINCIPAL
             
         RET
         CASAAST ENDP        
@@ -477,4 +479,3 @@ INICIO:
     
 CODIGO ENDS
 END INICIO
-
